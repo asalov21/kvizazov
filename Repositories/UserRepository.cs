@@ -42,5 +42,18 @@ namespace Kvizazov.Repositories
             string response = await requestService.HttpGetRequestWithFilter("users", "\"username\"", $"\"{username}\"");
             return response != "{}";
         }
+
+        public async Task<User> GetUserByUsername(string username)
+        {
+            string response = await requestService.HttpGetRequestWithFilter("users", "\"username\"", $"\"{username}\"");
+            User user = jsonParserService.JsonToUser(response);
+            return user;
+        }
+
+        public async Task EditUser(User user)
+        {
+            string json = jsonParserService.UserToJson_Edit(user);
+            await requestService.HttpPatchRequest($"users/{user.Username}", json);
+        }
     }
 }

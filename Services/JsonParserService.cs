@@ -11,64 +11,16 @@ namespace Kvizazov.Services
     {
         public string UserToJson_Registration(User user)
         {
-            return $"{{\"{user.Username}\":{{\"email\":\"{user.Email}\",\"name\":\"{user.Name}\",\"password\":\"{user.Password}\",\"surname\":\"{user.Surname}\",\"username\":\"{user.Username}\",\"soloPoints\":{user.SoloPoints},\"pairPoints\":{user.PairPoints},\"teamPoints\":{user.TeamPoints}}}}}";
+            return $"{{\"{user.Username}\":{{\"email\":\"{user.Email}\",\"name\":\"{user.Name}\",\"password\":\"{user.Password}\",\"surname\":\"{user.Surname}\",\"username\":\"{user.Username}\",\"soloPoints\":{user.SoloPoints},\"pairPoints\":{user.PairPoints},\"teamPoints\":{user.TeamPoints},\"role\":\"{user.Role}\"}}}}";
         }
 
-        public List<User> JsonToUserList(string json)
+        public string UserToJson_Edit(User user)
         {
-            List<User> userList = new List<User>();
-            json = json.TrimStart('{').TrimEnd('}');
-            string[] userStrings = json.Split(',');
-
-            foreach (string userString in userStrings)
-            {
-                string[] keyValuePairs = userString.Split(':');
-                string username = keyValuePairs[0].Trim('\"');
-                string[] userProperties = keyValuePairs[1].TrimStart('{').TrimEnd('}').Split(',');
-                User user = new User();
-                user.Username = username;
-
-                foreach (string property in userProperties)
-                {
-                    string[] propertyKeyValuePair = property.Split(':');
-                    string propertyName = propertyKeyValuePair[0].Trim('\"');
-                    string propertyValue = propertyKeyValuePair[1].Trim('\"');
-
-                    switch (propertyName)
-                    {
-                        case "email":
-                            user.Email = propertyValue;
-                            break;
-                        case "name":
-                            user.Name = propertyValue;
-                            break;
-                        case "password":
-                            user.Password = propertyValue;
-                            break;
-                        case "surname":
-                            user.Surname = propertyValue;
-                            break;
-                        case "soloPoints":
-                            user.SoloPoints = int.Parse(propertyValue);
-                            break;
-                        case "pairPoints":
-                            user.PairPoints = int.Parse(propertyValue);
-                            break;
-                        case "teamPoints":
-                            user.TeamPoints = int.Parse(propertyValue);
-                            break;
-                    }
-                }
-
-                userList.Add(user);
-            }
-
-            return userList;
+            return $"{{\"email\":\"{user.Email}\",\"name\":\"{user.Name}\",\"password\":\"{user.Password}\",\"surname\":\"{user.Surname}\"}}";
         }
-
         public User JsonToUser(string json)
         {
-            json = json.TrimStart('{').TrimEnd('}');
+            json = string.Join(":",json.TrimStart('{').TrimEnd('}').Split(':').Skip(1).ToArray()).TrimStart('{');
             string[] keyValuePairs = json.Split(',');
 
             User user = new User();
@@ -101,6 +53,12 @@ namespace Kvizazov.Services
                         break;
                     case "teamPoints":
                         user.TeamPoints = int.Parse(propertyValue);
+                        break;
+                    case "role":
+                        user.Role = propertyValue == "User" ? Role.User : Role.Admin;
+                        break;
+                    case "username":
+                        user.Username = propertyValue;
                         break;
                 }
             }

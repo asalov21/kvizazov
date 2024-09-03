@@ -67,7 +67,7 @@
                FontWeight="SemiBold"
                Margin="0,0,20,0"/>
 
-        <TextBox x:Name="txtPassword" 
+        <PasswordBox x:Name="txtPassword" 
                  Grid.Row="2" 
                  Grid.Column="1" 
                  FontSize="50" 

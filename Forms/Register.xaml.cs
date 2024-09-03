@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,14 +34,27 @@ namespace Kvizazov.Forms
             User user = new User
             {
                 Username = txtUsername.Text,
-                Password = txtPassword.Text,
+                Password = txtPassword.Password,
                 Email = txtEmail.Text,
                 Name = txtName.Text,
                 Surname = txtSurname.Text,
                 SoloPoints = 0,
                 PairPoints = 0,
-                TeamPoints = 0
+                TeamPoints = 0,
+                Role = Role.User
             };
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            bool isValidEmailFormat = Regex.IsMatch(user.Email, emailPattern);
+            //check if there are no empty textboxes
+            bool emptyFields = user.Username == "" || user.Password == "" || user.Email == "" || user.Name == "" || user.Surname == "";
+            if(!isValidEmailFormat || emptyFields)
+            {
+                MessageBox.Show("Sva polja su obavezna. Email mora biti u ispravnom formatu. Ponovite registraciju.");
+                Login login = new Login();
+                login.Show();
+                this.Close();
+                return;
+            }
             try
             {
                 bool uniqueUsername = await userRepository.CheckForExistingUserParameter("\"username\"", $"\"{user.Username}\"");
@@ -60,8 +74,8 @@ namespace Kvizazov.Forms
             {
                 MessageBox.Show(ex.ToString());
             }
-            Login login = new Login();
-            login.Show();
+            Login login1 = new Login();
+            login1.Show();
             this.Close();
         }
     }

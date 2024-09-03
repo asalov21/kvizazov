@@ -1,4 +1,5 @@
 ﻿using Kvizazov.Repositories;
+using Kvizazov.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,6 @@ namespace Kvizazov.Forms
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly UserRepository userRepository = new UserRepository();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +30,6 @@ namespace Kvizazov.Forms
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //replace window login with current window
             Login login = new Login();
             login.Show();
             this.Close();
@@ -60,6 +58,44 @@ namespace Kvizazov.Forms
         private void btnNewQuestions_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
+            this.Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.Instance.IsUserLoggedIn())
+            {
+                btnLogin.Visibility = Visibility.Hidden;
+                btnProfile.Visibility = Visibility.Visible;
+                btnTeamManagement.IsEnabled = true;
+                btnTeamManagement.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2196F3"));
+                btnQuizSearch.IsEnabled = true;
+                btnQuizSearch.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2196F3"));
+                btnPlayQuiz.IsEnabled = true;
+                btnPlayQuiz.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2196F3"));
+                btnLeaderboards.IsEnabled = true;
+                btnLeaderboards.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2196F3"));
+                btnNewQuestions.IsEnabled = true;
+                btnNewQuestions.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2196F3"));
+            } else
+            {
+                btnTeamManagement.IsEnabled = false;
+                btnTeamManagement.Background = Brushes.Gray;
+                btnQuizSearch.IsEnabled = false;
+                btnQuizSearch.Background = Brushes.Gray;
+                btnPlayQuiz.IsEnabled = false;
+                btnPlayQuiz.Background = Brushes.Gray;
+                btnLeaderboards.IsEnabled = false;
+                btnLeaderboards.Background = Brushes.Gray;
+                btnNewQuestions.IsEnabled = false;
+                btnNewQuestions.Background = Brushes.Gray;
+            }
         }
     }
 }

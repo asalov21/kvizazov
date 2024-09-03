@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kvizazov"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="Kvizazov" Height="900" Width="1600"
@@ -41,6 +42,21 @@
                 Click="btnLogin_Click"
                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <TextBlock Text="Prijava" TextAlignment="Center"/>
+        </Button>
+
+        <Button Grid.Row="1" Grid.Column="0" 
+        FontSize="36"
+        Background="#2196F3"
+        Foreground="White"
+        Margin="20"
+        Padding="30"
+        Width="350"
+        Height="150"
+        x:Name="btnProfile" 
+        Click="btnProfile_Click"
+        Visibility="Hidden"
+        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <TextBlock Text="Profil" TextAlignment="Center"/>
         </Button>
 
         <Button Grid.Row="1" Grid.Column="1" 

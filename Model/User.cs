@@ -16,6 +16,7 @@ namespace Kvizazov.Model
         public int SoloPoints { get; set; }
         public int PairPoints { get; set; }
         public int TeamPoints { get; set; }
+        public Role Role { get; set; }
 
     }
 }
