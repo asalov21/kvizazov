@@ -2,6 +2,8 @@
 using Kvizazov.Repositories;
 using Kvizazov.Services;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Kvizazov.Forms
 {
@@ -40,11 +42,10 @@ namespace Kvizazov.Forms
                 Surname = txtSurname.Text,
                 Password = txtPassword.Password
             };
-            await userRepository.RegisterOrUpdateUser(user);
+            await userRepository.CreateOrUpdateUser(user);
             MessageBox.Show("Promjene spremljene");
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            (sender as Button).Focusable = false;
+            this.Focus();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -71,6 +72,23 @@ namespace Kvizazov.Forms
             lblSoloPoints.Content = $"Bodovi solo: {user.SoloPoints}";
             lblPairPoints.Content = $"Bodovi parovi: {user.PairPoints}";
             lblTeamPoints.Content = $"Bodovi timski: {user.TeamPoints}";
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

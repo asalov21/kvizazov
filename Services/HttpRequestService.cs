@@ -43,5 +43,17 @@ namespace Kvizazov
                 return responseBody;
             }
         }
+
+        public async Task<string> HttpDeleteRequest(string route)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, $"https://kvizazov-app-default-rtdb.firebaseio.com/{route}.json");
+                HttpResponseMessage response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return responseBody;
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Kvizazov.Forms
 {
@@ -60,7 +61,7 @@ namespace Kvizazov.Forms
                     return;
                 } else
                 {
-                    await userRepository.RegisterOrUpdateUser(user);
+                    await userRepository.CreateOrUpdateUser(user);
                     MessageBox.Show("Registracija uspješna. Možete se prijaviti.");
                     Login login = new Login();
                     login.Show();
@@ -69,6 +70,16 @@ namespace Kvizazov.Forms
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
         }
     }

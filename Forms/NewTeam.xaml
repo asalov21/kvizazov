@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Kvizazov.Forms"
         mc:Ignorable="d"
         ResizeMode="NoResize"
+        KeyDown="Window_KeyDown"
         WindowStartupLocation="CenterScreen"
         Background="#ffdddd"
         Loaded="Window_Loaded"
@@ -37,7 +38,8 @@
         <Label Content="Kod za pristup:" Grid.Row="4" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
         <TextBox x:Name="txtAccessCode" Padding="10,0,0,0" IsEnabled="False" Grid.Row="4" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="50" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBox>
 
-        <Button x:Name="btnCreate" Grid.Row="5" Grid.ColumnSpan="2" FontSize="45" Content="Kreiraj" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnCreate_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnCreate" Grid.Row="5" Grid.Column="0" FontSize="45" Content="Kreiraj" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="400,20,0,20" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnCreate_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnClose" Grid.Row="5" Grid.Column="1" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,20,400,20" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
 
     </Grid>
     

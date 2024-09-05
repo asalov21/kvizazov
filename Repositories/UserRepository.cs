@@ -8,7 +8,7 @@ namespace Kvizazov.Repositories
     {
         private readonly HttpRequestService requestService = new HttpRequestService();
 
-        public async Task RegisterOrUpdateUser(User user)
+        public async Task CreateOrUpdateUser(User user)
         {
             string json = JsonConvert.SerializeObject(user);
             await requestService.HttpPatchRequest($"users/{user.Username}", json);

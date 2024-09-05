@@ -8,6 +8,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown"
         Background="#ffdddd"
         Title="TeamManagement" Height="900" Width="1600">
     <Grid>
@@ -35,12 +36,67 @@
 
         <Button x:Name="btnSearch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" FontSize="45" Content="Prikaži" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnSearch_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
 
-        <DataGrid x:Name="dgTeams" BorderThickness="5" Grid.Row="3" Grid.ColumnSpan="4" Margin="20,0"></DataGrid>
+        <DataGrid x:Name="dgTeams" 
+          BorderThickness="3"
+          Grid.Row="3" 
+          Grid.ColumnSpan="4" 
+          Padding="5,5"
+          Margin="20,0"
+          RowHeight="30"
+          ColumnHeaderHeight="70"
+          Foreground="#333333"
+          Background="#e0e0e0"
+          VerticalContentAlignment="Center"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
+          HeadersVisibility="Column"
+          HorizontalGridLinesBrush="#cccccc"
+          VerticalGridLinesBrush="#cccccc"
+          BorderBrush="#2196f3"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          CanUserResizeRows="False"
+          CanUserResizeColumns="True"
+          IsReadOnly="True"
+          AutoGenerateColumns="True"
+          ColumnWidth="*">
+
+            <DataGrid.Resources>
+                <!-- Style for column headers -->
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="Padding" Value="0,0" />
+                    <Setter Property="Foreground" Value="#333333" />
+                    <Setter Property="Background" Value="#e0e0e0" />
+                    <Setter Property="BorderBrush" Value="#cccccc" />
+                    <Setter Property="BorderThickness" Value="0,0,1,0" />
+                </Style>
+
+                <!-- Style for DataGrid rows -->
+                <Style TargetType="DataGridRow">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="Foreground" Value="#333333" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="BorderBrush" Value="#cccccc" />
+                </Style>
+
+                <!-- Style for DataGrid cells -->
+                <Style TargetType="DataGridCell">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+
+
 
         <Button x:Name="btnJoin" Grid.Row="4" Grid.Column="0" FontSize="45" Content="Pridruži se" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnJoin_Click"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
         <Button x:Name="btnNewTeam" Grid.Row="4" Grid.Column="1" FontSize="45" Content="Novi tim" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnNewTeam_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
         <Button x:Name="btnMyTeams" Grid.Row="4" Grid.Column="2" FontSize="45" Content="Moji timovi" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnMyTeams_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
-        <Button x:Name="btnClose" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Izlaz" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnClose" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
 
     </Grid>
 </Window>

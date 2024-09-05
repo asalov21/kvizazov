@@ -4,6 +4,7 @@ using Kvizazov.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Kvizazov.Forms
 {
@@ -70,6 +71,16 @@ namespace Kvizazov.Forms
             Register register = new Register();
             register.Show();
             this.Close();
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
         }
     }
 }

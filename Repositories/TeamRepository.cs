@@ -1,6 +1,8 @@
 ﻿using Kvizazov.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace Kvizazov.Repositories
@@ -9,7 +11,7 @@ namespace Kvizazov.Repositories
     {
         private readonly HttpRequestService requestService = new HttpRequestService();
 
-        public async Task CreateNewTeam(Team team)
+        public async Task CreateOrUpdateTeam(Team team)
         {
             string json = JsonConvert.SerializeObject(team);
             await requestService.HttpPatchRequest($"teams/{team.Name}", json);
@@ -38,22 +40,21 @@ namespace Kvizazov.Repositories
             return allTeams;
         }
 
-        /*
         public async Task<List<Team>> ShowFilteredTeams(TeamType type, TeamOccupancy occupancy, TeamVisibility visibility)
         {
             List<Team> allTeams = await GetAllTeams();
-            List<Team> teamsToShow = new List<Team>();
-
-            foreach(Team team in allTeams)
-            {
-                if(team.Type == type && team.Occupancy == occupancy && team.Visibility == visibility)
-                {
-                    teamsToShow.Add(team);
-                }
-            }
-
-            return teamsToShow;
+            return allTeams.Where(team => team.Type == type && team.Occupancy == occupancy && team.Visibility == visibility).ToList();
         }
-        */
+
+        public async Task<List<Team>> ShowMyTeams(User user)
+        {
+            List<Team> allTeams = await GetAllTeams();
+            return allTeams.Where(team => team.Members.Select(_user => _user.Username).ToList().Contains(user.Username)).ToList();
+        }
+
+        public async Task DeleteTeam(string name)
+        {
+            await requestService.HttpDeleteRequest($"teams/{name}");
+        }
     }
 }

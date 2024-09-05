@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Kvizazov.Forms"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="#ffdddd"
@@ -20,34 +21,36 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="500"></ColumnDefinition>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblRoleUsername" Grid.Row="0" Grid.ColumnSpan="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
+        <Label x:Name="lblRoleUsername" Grid.Row="0" Grid.ColumnSpan="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Email:" Grid.Row="1" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
-        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtEmail" BorderThickness="5" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
+        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="350" x:Name="txtEmail" BorderThickness="5" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Ime:" Grid.Row="2" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
-        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtName" BorderThickness="5" Grid.Row="2" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
+        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="350" x:Name="txtName" BorderThickness="5" Grid.Row="2" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Prezime:" Grid.Row="3" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
-        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtSurname" BorderThickness="5" Grid.Row="3" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
+        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="350" x:Name="txtSurname" BorderThickness="5" Grid.Row="3" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Lozinka:" Grid.Row="4" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
-        <PasswordBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtPassword" BorderThickness="5" Grid.Row="4" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></PasswordBox>
+        <PasswordBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="350" x:Name="txtPassword" BorderThickness="5" Grid.Row="4" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></PasswordBox>
 
-        <Label x:Name="lblSoloPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Label x:Name="lblSoloPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
         
-        <Label x:Name="lblPairPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Label x:Name="lblPairPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
         
-        <Label x:Name="lblTeamPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Label x:Name="lblTeamPoints" Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
         
-        <Button x:Name="btnEdit" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Uredi" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="50,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnEdit_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
-        <Button x:Name="btnSave" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Spremi" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="50,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnSave_Click"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
-        <Button x:Name="btnLogout" Grid.Row="4" Grid.Column="4" FontSize="45" Content="Odjava" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="50,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnLogout_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
+        <Button x:Name="btnEdit" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Uredi" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="40,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnEdit_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
+        <Button x:Name="btnSave" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Spremi" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="40,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnSave_Click"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
+        <Button x:Name="btnLogout" Grid.Row="4" Grid.Column="4" FontSize="45" Content="Odjava" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="40,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnLogout_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
+        <Button x:Name="btnClose" Grid.Row="4" Grid.Column="5" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="40,40" Background="#2196f3" Foreground="White" Width="250" Height="100" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ></Button>
 
     </Grid>
 </Window>

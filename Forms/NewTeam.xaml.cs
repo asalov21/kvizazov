@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Kvizazov.Forms
 {
@@ -53,12 +54,12 @@ namespace Kvizazov.Forms
                     return;
                 } else
                 {
-                    await teamRepository.CreateNewTeam(team);
+                    await teamRepository.CreateOrUpdateTeam(team);
                     MessageBox.Show("Tim uspješno kreiran");
-                    TeamManagement teamManagement = new TeamManagement();
-                    teamManagement.Show();
-                    this.Close();
+                    (sender as Button).Focusable = false;
+                    this.Focus();
                 }
+                
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString()); 
@@ -88,6 +89,23 @@ namespace Kvizazov.Forms
             Random random = new Random();
             string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(chars, 5).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            TeamManagement teamManagement = new TeamManagement();
+            teamManagement.Show();
+            this.Close();
         }
     }
 }

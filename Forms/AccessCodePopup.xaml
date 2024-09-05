@@ -1,0 +1,22 @@
+﻿<Window x:Class="Kvizazov.Forms.AccessCodePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kvizazov.Forms"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#ffdddd"
+        Title="AccessCodePopup" Height="200" Width="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Pristupni kod:" Grid.Row="0" FontSize="20" VerticalAlignment="Bottom" Margin="5" FontWeight="SemiBold"></TextBlock>
+        <TextBox x:Name="txtAccessCode" Grid.Row="1" Padding="2" FontSize="20" VerticalContentAlignment="Center" Height="35" VerticalAlignment="Top" BorderThickness="2"></TextBox>
+        <Button x:Name="btnSubmit" Content="Pridruži se" Grid.Row="2" FontSize="20" Width="120" Height="40" Background="#2196f3" Foreground="White" Click="btnSubmit_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+    </Grid>
+</Window>
