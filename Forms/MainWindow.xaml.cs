@@ -1,26 +1,10 @@
-﻿using Kvizazov.Repositories;
-using Kvizazov.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Kvizazov.Services;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kvizazov.Forms
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -37,7 +21,9 @@ namespace Kvizazov.Forms
 
         private void btnTeamManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            TeamManagement teamManagement = new TeamManagement();
+            teamManagement.Show();
+            this.Close();
         }
 
         private void btnQuizSearch_Click(object sender, RoutedEventArgs e)

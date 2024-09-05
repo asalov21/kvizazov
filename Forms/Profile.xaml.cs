@@ -1,25 +1,11 @@
 ﻿using Kvizazov.Model;
 using Kvizazov.Repositories;
 using Kvizazov.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Kvizazov.Forms
 {
-    /// <summary>
-    /// Interaction logic for Profile.xaml
-    /// </summary>
+
     public partial class Profile : Window
     {
         UserRepository userRepository = new UserRepository();
@@ -54,7 +40,11 @@ namespace Kvizazov.Forms
                 Surname = txtSurname.Text,
                 Password = txtPassword.Password
             };
-            await userRepository.EditUser(user);
+            await userRepository.RegisterOrUpdateUser(user);
+            MessageBox.Show("Promjene spremljene");
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

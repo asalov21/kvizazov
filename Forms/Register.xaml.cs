@@ -1,25 +1,13 @@
 ﻿using Kvizazov.Model;
 using Kvizazov.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Kvizazov.Forms
 {
-    /// <summary>
-    /// Interaction logic for Register.xaml
-    /// </summary>
+
     public partial class Register : Window
     {
         UserRepository userRepository = new UserRepository();
@@ -45,38 +33,43 @@ namespace Kvizazov.Forms
             };
             string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             bool isValidEmailFormat = Regex.IsMatch(user.Email, emailPattern);
-            //check if there are no empty textboxes
+
             bool emptyFields = user.Username == "" || user.Password == "" || user.Email == "" || user.Name == "" || user.Surname == "";
             if(!isValidEmailFormat || emptyFields)
             {
                 MessageBox.Show("Sva polja su obavezna. Email mora biti u ispravnom formatu. Ponovite registraciju.");
-                Login login = new Login();
-                login.Show();
-                this.Close();
+                (sender as Button).Focusable = false;
+                this.Focus();
                 return;
             }
             try
             {
-                bool uniqueUsername = await userRepository.CheckForExistingUserParameter("\"username\"", $"\"{user.Username}\"");
-                bool uniqueEmail = await userRepository.CheckForExistingUserParameter("\"username\"", $"\"{user.Email}\"");
-                if (!uniqueUsername)
+                bool usernameExists = await userRepository.CheckIfUserExists(user.Username);
+                bool uniqueEmail = await userRepository.CheckForExistingUserParameter("\"email\"", $"\"{user.Email}\"");
+                if (usernameExists)
                 {
                     MessageBox.Show("Korisničko ime već postoji. Ponovite registraciju.");
+                    (sender as Button).Focusable = false;
+                    this.Focus();
+                    return;
                 } else if (!uniqueEmail)
                 {
                     MessageBox.Show("Ovaj email je već registriran. Ponovite registraciju.");
+                    (sender as Button).Focusable = false;
+                    this.Focus();
+                    return;
                 } else
                 {
-                    await userRepository.RegisterUser(user);
+                    await userRepository.RegisterOrUpdateUser(user);
                     MessageBox.Show("Registracija uspješna. Možete se prijaviti.");
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
                 }                
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            Login login1 = new Login();
-            login1.Show();
-            this.Close();
         }
     }
 }

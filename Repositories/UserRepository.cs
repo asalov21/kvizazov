@@ -1,27 +1,17 @@
-﻿using Kvizazov.Forms;
-using Kvizazov.Model;
-using Kvizazov.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
+﻿using Kvizazov.Model;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Animation;
 
 namespace Kvizazov.Repositories
 {
     public class UserRepository
     {
         private readonly HttpRequestService requestService = new HttpRequestService();
-        private readonly JsonParserService jsonParserService = new JsonParserService();
 
-        public async Task RegisterUser(User user)
+        public async Task RegisterOrUpdateUser(User user)
         {
-            string json = jsonParserService.UserToJson_Registration(user);
-            await requestService.HttpPatchRequest("users", json);
+            string json = JsonConvert.SerializeObject(user);
+            await requestService.HttpPatchRequest($"users/{user.Username}", json);
         }
 
         public async Task<bool> CheckForExistingUserParameter(string key, string value)
@@ -30,30 +20,16 @@ namespace Kvizazov.Repositories
             return response == "{}";
         }
 
-        public async Task<bool> LoginCheckUsernamePassword(string username, string password)
-        {
-            string response = await requestService.HttpGetRequestWithFilter("users", "\"username\"", $"\"{username}\"");
-            User user = jsonParserService.JsonToUser(response);
-            return user.Password == password;
-        }
-
         public async Task<bool> CheckIfUserExists(string username)
         {
-            string response = await requestService.HttpGetRequestWithFilter("users", "\"username\"", $"\"{username}\"");
-            return response != "{}";
+            string response = await requestService.HttpGetRequest($"users/{username}");
+            return response != "null";
         }
 
         public async Task<User> GetUserByUsername(string username)
         {
-            string response = await requestService.HttpGetRequestWithFilter("users", "\"username\"", $"\"{username}\"");
-            User user = jsonParserService.JsonToUser(response);
-            return user;
-        }
-
-        public async Task EditUser(User user)
-        {
-            string json = jsonParserService.UserToJson_Edit(user);
-            await requestService.HttpPatchRequest($"users/{user.Username}", json);
+            string response = await requestService.HttpGetRequest($"users/{username}");
+            return JsonConvert.DeserializeObject<User>(response);
         }
     }
 }

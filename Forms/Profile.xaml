@@ -28,7 +28,7 @@
         <Label x:Name="lblRoleUsername" Grid.Row="0" Grid.ColumnSpan="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Email:" Grid.Row="1" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
-        <TextBox Text="example@example.com" Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtEmail" BorderThickness="5" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
+        <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtEmail" BorderThickness="5" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
 
         <Label Foreground="#333333" FontWeight="SemiBold" Margin="0,0,20,0" Content="Ime:" Grid.Row="2" Grid.Column="0" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
         <TextBox Padding="10,0,0,0" Foreground="#333333" Margin="20,0,0,0" Width="450" x:Name="txtName" BorderThickness="5" Grid.Row="2" Grid.Column="1" FontSize="30" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="80"></TextBox>
