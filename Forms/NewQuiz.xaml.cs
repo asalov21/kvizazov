@@ -22,6 +22,7 @@ namespace Kvizazov.Forms
     public partial class NewQuiz : Window
     {
         QuizRepository quizRepository = new QuizRepository();
+        UserRepository userRepository = new UserRepository();
 
         public NewQuiz()
         {
@@ -47,6 +48,12 @@ namespace Kvizazov.Forms
                 (sender as Button).Focusable = false;
                 this.Focus();
                 return;
+            } else if(dateTimeEnd.Value < dateTimeStart.Value)
+            {
+                MessageBox.Show("Datum završetka kviza ne može biti prije datuma početka kviza");
+                (sender as Button).Focusable = false;
+                this.Focus();
+                return;
             }
 
             int nextQuizId = await quizRepository.GetNextQuizId();
@@ -59,8 +66,18 @@ namespace Kvizazov.Forms
                 End = (DateTime)dateTimeEnd.Value,
                 NumQuestions = int.Parse(txtNumQuestions.Text),
                 SecondsPerQuestion = int.Parse(txtSecondsPerQuestion.Text),
-                Status = (DateTime.Now >= (DateTime)dateTimeStart.Value && DateTime.Now <= (DateTime)dateTimeEnd.Value) ? QuizStatus.Otvoren : QuizStatus.Zatvoren
+                Status = (DateTime.Now >= (DateTime)dateTimeStart.Value && DateTime.Now <= (DateTime)dateTimeEnd.Value) ? QuizStatus.Otvoren : QuizStatus.Zatvoren,
+                LeaderboardSolo = new List<KeyValuePair<User, int>>(),
+                LeaderboardPairTeam = new List<KeyValuePair<Team, int>>()
             };
+
+            if(quiz.Type == QuizType.Individualni)
+            {
+                quiz.LeaderboardSolo.Add(new KeyValuePair<User, int>(new User {Username = "default"}, 0));
+            } else
+            {
+                quiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, int>(new Team { Name = "default" }, 0));
+            }
 
             await quizRepository.CreateOrUpdateQuiz(quiz);
             MessageBox.Show("Kviz uspješno kreiran");

@@ -104,6 +104,9 @@
     <Compile Include="Forms\AccessCodePopup.xaml.cs">
       <DependentUpon>AccessCodePopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ApproveQuestions.xaml.cs">
+      <DependentUpon>ApproveQuestions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BaseForm.cs" />
     <Compile Include="Forms\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -111,11 +114,17 @@
     <Compile Include="Forms\MyTeams.xaml.cs">
       <DependentUpon>MyTeams.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NewQuestions.xaml.cs">
+      <DependentUpon>NewQuestions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewQuiz.xaml.cs">
       <DependentUpon>NewQuiz.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewTeam.xaml.cs">
       <DependentUpon>NewTeam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PlayQuiz.xaml.cs">
+      <DependentUpon>PlayQuiz.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
@@ -129,6 +138,7 @@
     <Compile Include="Forms\TeamManagement.xaml.cs">
       <DependentUpon>TeamManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Quiz.cs" />
     <Compile Include="Model\QuizStatus.cs" />
     <Compile Include="Model\QuizType.cs" />
@@ -137,12 +147,17 @@
     <Compile Include="Model\TeamOccupancy.cs" />
     <Compile Include="Model\TeamType.cs" />
     <Compile Include="Model\TeamVisibility.cs" />
+    <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\QuizRepository.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Services\HttpRequestService.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\UserSessionService.cs" />
     <Page Include="Forms\AccessCodePopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ApproveQuestions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,11 +181,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\NewQuestions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\NewQuiz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\NewTeam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\PlayQuiz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

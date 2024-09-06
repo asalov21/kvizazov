@@ -17,6 +17,7 @@ namespace Kvizazov.Model
         public int PairPoints { get; set; }
         public int TeamPoints { get; set; }
         public Role Role { get; set; }
+        public List<int> SignedUpQuizzes { get; set; }
 
     }
 }

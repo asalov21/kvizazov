@@ -23,6 +23,12 @@ namespace Kvizazov.Repositories
             return response != "null";
         }
 
+        public async Task<Team> GetTeamByName(string name)
+        {
+            string response = await requestService.HttpGetRequest($"teams/{name}");
+            return JsonConvert.DeserializeObject<Team>(response);
+        }
+
         public async Task<List<Team>> GetAllTeams()
         {
             string responseJson = await requestService.HttpGetRequest("teams");

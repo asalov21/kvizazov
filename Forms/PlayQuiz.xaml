@@ -1,4 +1,4 @@
-﻿<Window x:Class="Kvizazov.Forms.QuizSearch"
+﻿<Window x:Class="Kvizazov.Forms.PlayQuiz"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
         Loaded="Window_Loaded"
         KeyDown="Window_KeyDown"
         Background="#ffdddd"
-        Title="QuizSearch" Height="900" Width="1600">
+        Title="PlayQuiz" Height="900" Width="1600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"></RowDefinition>
@@ -25,7 +25,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Content="Pretraga kvizova" Grid.Row="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
+        <Label Content="Zaigraj kviz" Grid.Row="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
         <Label Content="Vrsta:" Grid.Row="1" Grid.Column="0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="40" FontWeight="SemiBold" Foreground="#333333" Margin="20,0,0,0"></Label>
         <Label Content="Par:" Grid.Row="1" Grid.Column="1"  HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="40" FontWeight="SemiBold" Foreground="#333333" Margin="20,0,0,0"></Label>
         <Label Content="Tim:" Grid.Row="1" Grid.Column="2"  HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="40" FontWeight="SemiBold" Foreground="#333333" Margin="20,0,0,0"></Label>
@@ -43,6 +43,7 @@
           Padding="5,5"
           Margin="20,0"
           RowHeight="30"
+          SelectionMode="Single"
           ColumnHeaderHeight="70"
           Foreground="#333333"
           Background="#e0e0e0"
@@ -93,9 +94,8 @@
 
 
 
-        <Button x:Name="btnSignup" Grid.Row="4" Grid.Column="0" FontSize="45" Content="Prijavi se" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnSignup_Click"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
-        <Button x:Name="btnNewQuiz" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" FontSize="45" Content="Kreiraj novi kviz (Admin)" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="600" Height="130" Background="#2196f3" Foreground="White" Click="btnNewQuiz_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
-        <Button x:Name="btnClose" Grid.Row="4" Grid.Column="3" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="60,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnPlay" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="45" Content="Pokreni" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="400,30,0,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnPlay_Click"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnClose" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,30,400,30" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
 
     </Grid>
 </Window>

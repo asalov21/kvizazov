@@ -35,7 +35,9 @@ namespace Kvizazov.Forms
 
         private void btnPlayQuiz_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayQuiz playQuiz = new PlayQuiz();
+            playQuiz.Show();
+            this.Close();
         }
 
         private void btnLeaderboards_Click(object sender, RoutedEventArgs e)
@@ -45,7 +47,9 @@ namespace Kvizazov.Forms
 
         private void btnNewQuestions_Click(object sender, RoutedEventArgs e)
         {
-
+            NewQuestions newQuestions = new NewQuestions();
+            newQuestions.Show();
+            this.Close();
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)

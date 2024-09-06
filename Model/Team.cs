@@ -15,6 +15,7 @@ namespace Kvizazov.Model
         public TeamOccupancy Occupancy { get; set; }
         public TeamVisibility Visibility { get; set; }
         public string AccessCode { get; set; }
+        public List<int> SignedUpQuizzes { get; set; }
         public string ConcatenatedUsernames
         {
             get 

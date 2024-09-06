@@ -25,6 +25,8 @@ namespace Kvizazov.Forms
     {
         QuizRepository quizRepository = new QuizRepository();
         TeamRepository teamRepository = new TeamRepository();
+        UserRepository userRepository = new UserRepository();
+
         List<Team> myPairs, myTeams = new List<Team>();
 
         public QuizSearch()
@@ -78,7 +80,9 @@ namespace Kvizazov.Forms
                 return;
             }
 
-            List<Quiz> quizzes = await quizRepository.GetAllQuizzesOfType((QuizType)cmbType.SelectedItem);
+            List<Quiz> quizzesBeforeUpdate = await quizRepository.GetAllQuizzesOfType((QuizType)cmbType.SelectedItem);
+
+            List<Quiz> quizzes = await quizRepository.UpdateQuizStatus(quizzesBeforeUpdate);
 
             dgQuizes.ItemsSource = quizzes;
 
@@ -95,9 +99,81 @@ namespace Kvizazov.Forms
             dgQuizes.Columns[7].Visibility = Visibility.Hidden;
         }
 
-        private void btnSignup_Click(object sender, RoutedEventArgs e)
+        private async void btnSignup_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgQuizes.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberite kviz na koji se želite prijaviti");
+            } else if (dgQuizes.SelectedItem is Quiz selectedQuiz)
+            {
+                if(selectedQuiz.Type == QuizType.Individualni)
+                {
+                    if(selectedQuiz.LeaderboardSolo.Exists(user => user.Key.Username == UserSessionService.Instance.LoggedInUser.Username))
+                    {
+                        MessageBox.Show("Već ste prijavljeni na ovaj kviz");
+                        (sender as Button).Focusable = false;
+                        this.Focus();
+                        return;
+                    }
+                    selectedQuiz.LeaderboardSolo.Add(new KeyValuePair<User, int>(UserSessionService.Instance.LoggedInUser, 0));
+                    UserSessionService.Instance.LoggedInUser.SignedUpQuizzes.Add(selectedQuiz.Id);
+                    if (UserSessionService.Instance.LoggedInUser.SignedUpQuizzes.Contains(0))
+                    {
+                       UserSessionService.Instance.LoggedInUser.SignedUpQuizzes.Remove(0);
+                    }
+                    await userRepository.CreateOrUpdateUser(UserSessionService.Instance.LoggedInUser);
+                    if(selectedQuiz.LeaderboardSolo.Exists(user => user.Key.Username == "default"))
+                    {
+                        selectedQuiz.LeaderboardSolo.RemoveAt(0);
+                    }
+                } else if(selectedQuiz.Type == QuizType.Parovi)
+                {
+                    if(selectedQuiz.LeaderboardPairTeam.Exists(team => team.Key.Name == cmbPair.SelectedItem.ToString()))
+                    {
+                        MessageBox.Show("Već ste prijavljeni na ovaj kviz");
+                        (sender as Button).Focusable = false;
+                        this.Focus();
+                        return;
+                    }
+                    Team selectedPair = await teamRepository.GetTeamByName(cmbPair.SelectedItem.ToString());
+                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, int>(selectedPair, 0));
+                    selectedPair.SignedUpQuizzes.Add(selectedQuiz.Id);
+                    if (selectedPair.SignedUpQuizzes.Contains(0))
+                    {
+                        selectedPair.SignedUpQuizzes.Remove(0);
+                    }
+                    await teamRepository.CreateOrUpdateTeam(selectedPair);
+                    if(selectedQuiz.LeaderboardPairTeam.Exists(team => team.Key.Name == "default"))
+                    {
+                        selectedQuiz.LeaderboardPairTeam.RemoveAt(0);
+                    }
+                } else
+                {
+                    if(selectedQuiz.LeaderboardPairTeam.Exists(team => team.Key.Name == cmbTeam.SelectedItem.ToString()))
+                    {
+                        MessageBox.Show("Već ste prijavljeni na ovaj kviz");
+                        (sender as Button).Focusable = false;
+                        this.Focus();
+                        return;
+                    }
+                    Team selectedTeam = await teamRepository.GetTeamByName(cmbTeam.SelectedItem.ToString());
+                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, int>(selectedTeam, 0));
+                    selectedTeam.SignedUpQuizzes.Add(selectedQuiz.Id);
+                    if (selectedTeam.SignedUpQuizzes.Contains(0))
+                    {
+                        selectedTeam.SignedUpQuizzes.Remove(0);
+                    }
+                    await teamRepository.CreateOrUpdateTeam(selectedTeam);
+                    if (selectedQuiz.LeaderboardPairTeam.Exists(team => team.Key.Name == "default"))
+                    {
+                        selectedQuiz.LeaderboardPairTeam.RemoveAt(0);
+                    }
+                }
+                await quizRepository.CreateOrUpdateQuiz(selectedQuiz);
+                MessageBox.Show("Uspješno ste se prijavili na kviz");
+                (sender as Button).Focusable = false;
+                this.Focus();
+            }
         }
 
         private void btnNewQuiz_Click(object sender, RoutedEventArgs e)
@@ -114,8 +190,19 @@ namespace Kvizazov.Forms
             this.Close();
         }
 
+        private void cmbPair_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dgQuizes.ItemsSource = null;
+        }
+
+        private void cmbTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dgQuizes.ItemsSource = null;
+        }
+
         private void cmbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            dgQuizes.ItemsSource = null;
             if ((QuizType)cmbType.SelectedItem == QuizType.Individualni)
             {
                 cmbPair.IsEnabled = false;

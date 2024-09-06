@@ -39,9 +39,11 @@ namespace Kvizazov.Forms
                 Type = (TeamType)cmbType.SelectedItem,
                 Occupancy = TeamOccupancy.Slobodan,
                 Visibility = (TeamVisibility)cmbVisibility.SelectedItem,
-                AccessCode = (TeamVisibility)cmbVisibility.SelectedItem == TeamVisibility.Privatan ? txtAccessCode.Text : ""
+                AccessCode = (TeamVisibility)cmbVisibility.SelectedItem == TeamVisibility.Privatan ? txtAccessCode.Text : "",
+                SignedUpQuizzes = new List<int>(),
             };
             team.Members.Add(UserSessionService.Instance.LoggedInUser);
+            team.SignedUpQuizzes.Add(0);
 
             try
             {

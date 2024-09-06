@@ -1,6 +1,7 @@
 ﻿using Kvizazov.Model;
 using Kvizazov.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,8 +31,11 @@ namespace Kvizazov.Forms
                 SoloPoints = 0,
                 PairPoints = 0,
                 TeamPoints = 0,
-                Role = Role.User
+                Role = Role.User,
+                SignedUpQuizzes = new List<int>()
             };
+            user.SignedUpQuizzes.Add(0);
+
             string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             bool isValidEmailFormat = Regex.IsMatch(user.Email, emailPattern);
 

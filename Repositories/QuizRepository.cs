@@ -18,6 +18,12 @@ namespace Kvizazov.Repositories
             await requestService.HttpPatchRequest($"quizzes/{quiz.Id}", json);
         }
 
+        public async Task<Quiz> GetQuizById(int id)
+        {
+            string response = await requestService.HttpGetRequest($"quizzes/{id}");
+            return JsonConvert.DeserializeObject<Quiz>(response);
+        }
+
         public async Task<int> GetNextQuizId()
         {
             string responseJson = await requestService.HttpGetRequestOnlyLastElement("quizzes", "id");
@@ -43,6 +49,64 @@ namespace Kvizazov.Repositories
                 }
             }
             return allQuizzes;
+        }
+
+        public async Task<List<Quiz>> UpdateQuizStatus(List<Quiz> quizzesBeforeUpdate)
+        {
+            List<Quiz> quizzesAfterUpdate = new List<Quiz>();
+
+            foreach (Quiz quiz in quizzesBeforeUpdate)
+            {
+                if (quiz.Status == QuizStatus.Otvoren && DateTime.Now > quiz.End)
+                {
+                    quiz.Status = QuizStatus.Zatvoren;
+                    await CreateOrUpdateQuiz(quiz);
+                }
+                if(quiz.Status == QuizStatus.Zatvoren && DateTime.Now > quiz.Start && DateTime.Now < quiz.End)
+                {
+                    quiz.Status = QuizStatus.Otvoren;
+                    await CreateOrUpdateQuiz(quiz);
+                }
+                quizzesAfterUpdate.Add(quiz);
+            }
+
+            return quizzesAfterUpdate;
+        }
+
+        public async Task<List<Quiz>> GetAllOpenQuizzesUserSignedUp(User user)
+        {
+            List<int> quizzesUserSignedUp = user.SignedUpQuizzes;
+
+            List<Quiz> allQuizzesBeforeUpdate = new List<Quiz>();
+
+            foreach(int quizId in quizzesUserSignedUp)
+            {
+                Quiz quiz = await GetQuizById(quizId);
+                allQuizzesBeforeUpdate.Add(quiz);
+            }
+
+            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate);
+
+            return allQuizzesAfterUpdate.Where(quiz => quiz.Status == QuizStatus.Otvoren).ToList();
+        }
+
+        public async Task<List<Quiz>> GetAllOpenQuizzesTeamSignedUp(string teamName)
+        {
+            Team team = await new TeamRepository().GetTeamByName(teamName);
+
+            List<int> quizzesTeamSignedUp = team.SignedUpQuizzes;
+
+            List<Quiz> allQuizzesBeforeUpdate = new List<Quiz>();
+
+            foreach(int quizId in quizzesTeamSignedUp)
+            {
+                Quiz quiz = await GetQuizById(quizId);
+                allQuizzesBeforeUpdate.Add(quiz);
+            }
+
+            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate);
+
+            return allQuizzesAfterUpdate.Where(quiz => quiz.Status == QuizStatus.Otvoren).ToList();
         }
     }
 }
