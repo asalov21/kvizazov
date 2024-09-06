@@ -1,0 +1,51 @@
+﻿<Window x:Class="Kvizazov.Forms.NewQuiz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kvizazov.Forms" 
+        xmlns:wpfToolKit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown"
+        Background="#ffdddd"
+        Title="NewQuiz" Height="900" Width="1600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Novi kviz" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
+
+        <Label Content="Vrsta:" Grid.Row="1" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <ComboBox x:Name="cmbType" Padding="10" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="40" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></ComboBox>
+
+        <Label Content="Vrijeme početka:" Grid.Row="2" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <wpfToolKit:DateTimePicker x:Name="dateTimeStart" Grid.Row="2" Grid.Column="1" FontSize="20" Margin="10,20" Width="400" HorizontalAlignment="Left"></wpfToolKit:DateTimePicker>
+
+        <Label Content="Vrijeme završetka:" Grid.Row="3" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <wpfToolKit:DateTimePicker x:Name="dateTimeEnd" Grid.Row="3" Grid.Column="1" FontSize="20" Margin="10,20" Width="400" HorizontalAlignment="Left"></wpfToolKit:DateTimePicker>
+
+        <Label Content="Broj pitanja:" Grid.Row="4" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <TextBox x:Name="txtNumQuestions" Padding="10,0,0,0" Grid.Row="4" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="50" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBox>
+
+        <Label Content="Broj sekundi po pitanju:" Grid.Row="5" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <TextBox x:Name="txtSecondsPerQuestion" Padding="10,0,0,0" Grid.Row="5" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="50" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBox>
+
+        <Button x:Name="btnCreate" Grid.Row="6" Grid.Column="0" FontSize="45" Content="Kreiraj" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="400,20,0,20" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnCreate_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+        <Button x:Name="btnClose" Grid.Row="6" Grid.Column="1" FontSize="45" Content="Povratak" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,20,400,20" Width="270" Height="130" Background="#2196f3" Foreground="White" Click="btnClose_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"></Button>
+
+    </Grid>
+</Window>

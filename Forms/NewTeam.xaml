@@ -26,8 +26,8 @@
         </Grid.ColumnDefinitions>
         <Label Content="Novi tim" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="#333333"></Label>
 
-        <Label Content="Naziv:" Grid.Row="1" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
-        <TextBox x:Name="txtName" Padding="10,0,0,0" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="50" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBox>
+        <Label Content="Naziv:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
+        <TextBox x:Name="txtName" Padding="10,0,0,0" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="35" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBox>
 
         <Label Content="Vrsta:" Grid.Row="2" Grid.Column="0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="50" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,10,0"></Label>
         <ComboBox x:Name="cmbType" Padding="10" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="40" Width="400" BorderThickness="5" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0"></ComboBox>

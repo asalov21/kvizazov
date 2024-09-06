@@ -80,6 +80,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.6.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.6.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -96,11 +111,17 @@
     <Compile Include="Forms\MyTeams.xaml.cs">
       <DependentUpon>MyTeams.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NewQuiz.xaml.cs">
+      <DependentUpon>NewQuiz.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewTeam.xaml.cs">
       <DependentUpon>NewTeam.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuizSearch.xaml.cs">
+      <DependentUpon>QuizSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -108,11 +129,15 @@
     <Compile Include="Forms\TeamManagement.xaml.cs">
       <DependentUpon>TeamManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Quiz.cs" />
+    <Compile Include="Model\QuizStatus.cs" />
+    <Compile Include="Model\QuizType.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\Team.cs" />
     <Compile Include="Model\TeamOccupancy.cs" />
     <Compile Include="Model\TeamType.cs" />
     <Compile Include="Model\TeamVisibility.cs" />
+    <Compile Include="Repositories\QuizRepository.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Services\HttpRequestService.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -141,11 +166,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\NewQuiz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\NewTeam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\QuizSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

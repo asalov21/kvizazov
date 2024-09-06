@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace Kvizazov
 {
@@ -38,6 +39,16 @@ namespace Kvizazov
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync($"https://kvizazov-app-default-rtdb.firebaseio.com/{route}.json?orderBy={filterKey}&equalTo={filterValue}");
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return responseBody;
+            }
+        }
+
+        public async Task<string> HttpGetRequestOnlyLastElement(string route, string filterKey)
+        {
+           using (HttpClient client = new HttpClient()){
+                HttpResponseMessage response = await client.GetAsync($"https://kvizazov-app-default-rtdb.firebaseio.com/{route}.json?orderBy=\"{filterKey}\"&limitToLast=1");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 return responseBody;

@@ -58,6 +58,10 @@ namespace Kvizazov.Forms
                     MessageBox.Show("Tim uspješno kreiran");
                     (sender as Button).Focusable = false;
                     this.Focus();
+                    txtName.Text = "";
+                    cmbType.SelectedItem = null;
+                    cmbVisibility.SelectedItem = null;
+                    txtAccessCode.Text = "";
                 }
                 
             } catch (Exception ex)
@@ -74,13 +78,16 @@ namespace Kvizazov.Forms
 
         private void cmbVisibility_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TeamVisibility selectedVisibility = (TeamVisibility)cmbVisibility.SelectedItem;
-            if (selectedVisibility == TeamVisibility.Privatan)
+            if(cmbVisibility.SelectedItem != null)
             {
-                txtAccessCode.Text = GenerateAccessCode();
-            } else
-            {
-                txtAccessCode.Text = "";
+                TeamVisibility selectedVisibility = (TeamVisibility)cmbVisibility.SelectedItem;
+                if (selectedVisibility == TeamVisibility.Privatan)
+                {
+                    txtAccessCode.Text = GenerateAccessCode();
+                } else
+                {
+                    txtAccessCode.Text = "";
+                }
             }
         }
 

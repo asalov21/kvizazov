@@ -52,6 +52,12 @@ namespace Kvizazov.Repositories
             return allTeams.Where(team => team.Members.Select(_user => _user.Username).ToList().Contains(user.Username)).ToList();
         }
 
+        public async Task<List<Team>> CaptainTeamsOfSpecificType(TeamType type, User user)
+        {
+            List<Team> allMyTeams = await ShowMyTeams(user);
+            return allMyTeams.Where(team => team.Type == type && team.Captain.Username == user.Username).ToList();
+        }
+
         public async Task DeleteTeam(string name)
         {
             await requestService.HttpDeleteRequest($"teams/{name}");

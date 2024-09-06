@@ -28,7 +28,9 @@ namespace Kvizazov.Forms
 
         private void btnQuizSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            QuizSearch quizSearch = new QuizSearch();
+            quizSearch.Show();
+            this.Close();
         }
 
         private void btnPlayQuiz_Click(object sender, RoutedEventArgs e)

@@ -47,15 +47,14 @@ namespace Kvizazov.Forms
             var bindingMembers = new Binding("ConcatenatedUsernames");
             columnMembers.Binding = bindingMembers;
 
-            dgTeams.Columns[6].Visibility = Visibility.Hidden;
-            dgTeams.Columns[7].Visibility = Visibility.Hidden;
-
             dgTeams.Columns[0].Header = "Naziv";
             dgTeams.Columns[1].Header = "Kapetan";
             dgTeams.Columns[2].Header = "Članovi";
             dgTeams.Columns[3].Header = "Vrsta";
             dgTeams.Columns[4].Header = "Popunjenost";
             dgTeams.Columns[5].Header = "Vidljivost";
+            dgTeams.Columns[6].Visibility = Visibility.Hidden;
+            dgTeams.Columns[7].Visibility = Visibility.Hidden;
         }
 
         private async void btnJoin_Click(object sender, RoutedEventArgs e)
