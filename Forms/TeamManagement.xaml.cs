@@ -55,6 +55,7 @@ namespace Kvizazov.Forms
             dgTeams.Columns[5].Header = "Vidljivost";
             dgTeams.Columns[6].Visibility = Visibility.Hidden;
             dgTeams.Columns[7].Visibility = Visibility.Hidden;
+            dgTeams.Columns[8].Visibility = Visibility.Hidden;
         }
 
         private async void btnJoin_Click(object sender, RoutedEventArgs e)

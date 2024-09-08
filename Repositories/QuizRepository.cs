@@ -85,7 +85,12 @@ namespace Kvizazov.Repositories
                 allQuizzesBeforeUpdate.Add(quiz);
             }
 
-            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate);
+            if(allQuizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList().Count == 0)
+            {
+                return new List<Quiz>();
+            }
+
+            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList());
 
             return allQuizzesAfterUpdate.Where(quiz => quiz.Status == QuizStatus.Otvoren).ToList();
         }
@@ -104,7 +109,11 @@ namespace Kvizazov.Repositories
                 allQuizzesBeforeUpdate.Add(quiz);
             }
 
-            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate);
+            if(allQuizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList().Count == 0)
+            {
+                return new List<Quiz>();
+            }
+            List<Quiz> allQuizzesAfterUpdate = await UpdateQuizStatus(allQuizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList());
 
             return allQuizzesAfterUpdate.Where(quiz => quiz.Status == QuizStatus.Otvoren).ToList();
         }

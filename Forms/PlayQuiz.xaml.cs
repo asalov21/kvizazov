@@ -38,8 +38,8 @@ namespace Kvizazov.Forms
             cmbPair.IsEnabled = false;
             cmbTeam.IsEnabled = false;
 
-            myPairs = await teamRepository.CaptainTeamsOfSpecificType(TeamType.Par, UserSessionService.Instance.LoggedInUser);
-            myTeams = await teamRepository.CaptainTeamsOfSpecificType(TeamType.Tim, UserSessionService.Instance.LoggedInUser);
+            myPairs = await teamRepository.MemberTeamsOfSpecificType(TeamType.Par, UserSessionService.Instance.LoggedInUser);
+            myTeams = await teamRepository.MemberTeamsOfSpecificType(TeamType.Tim, UserSessionService.Instance.LoggedInUser);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -136,11 +136,55 @@ namespace Kvizazov.Forms
             dgQuizes.Columns[5].Header = "Sekundi po pitanju";
             dgQuizes.Columns[6].Visibility = Visibility.Hidden;
             dgQuizes.Columns[7].Visibility = Visibility.Hidden;
+            dgQuizes.Columns[8].Header = "Status";
+            dgQuizes.Columns[9].Visibility = Visibility.Hidden;
         }
 
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        private async void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgQuizes.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberite kviz koji želite igrati");
+            } else if (dgQuizes.SelectedItem is Quiz selectedQuiz)
+            {
+                if(selectedQuiz.Type == QuizType.Individualni)
+                {
+                    User user = UserSessionService.Instance.LoggedInUser;
+                    if(user.SignedUpQuizzes.Count == 1)
+                    {
+                        user.SignedUpQuizzes.Add(0);
+                    }
+                    user.SignedUpQuizzes.Remove(selectedQuiz.Id);
+                    await userRepository.CreateOrUpdateUser(user);
+                    Game game = new Game(selectedQuiz, user, null);
+                    game.Show();
+                    this.Close();
+                } else if(selectedQuiz.Type == QuizType.Parovi)
+                {
+                    Team pair = myPairs.Find(t => t.Name == cmbPair.SelectedItem.ToString());
+                    if(pair.SignedUpQuizzes.Count == 1)
+                    {
+                        pair.SignedUpQuizzes.Add(0);
+                    }
+                    pair.SignedUpQuizzes.Remove(selectedQuiz.Id);
+                    await teamRepository.CreateOrUpdateTeam(pair);
+                    Game game = new Game(selectedQuiz, null, pair);
+                    game.Show();
+                    this.Close();
+                } else
+                {
+                    Team team = myTeams.Find(t => t.Name == cmbTeam.SelectedItem.ToString());
+                    if(team.SignedUpQuizzes.Count == 1)
+                    {
+                        team.SignedUpQuizzes.Add(0);
+                    }
+                    team.SignedUpQuizzes.Remove(selectedQuiz.Id);
+                    await teamRepository.CreateOrUpdateTeam(team);
+                    Game game = new Game(selectedQuiz, null, team);
+                    game.Show();
+                    this.Close();
+                }
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

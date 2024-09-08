@@ -1,6 +1,8 @@
 ﻿using Kvizazov.Model;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Kvizazov.Repositories
 {
@@ -30,6 +32,23 @@ namespace Kvizazov.Repositories
         {
             string response = await requestService.HttpGetRequest($"users/{username}");
             return JsonConvert.DeserializeObject<User>(response);
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            string response = await requestService.HttpGetRequest("users");
+
+            List<User> allUsers = new List<User>();
+
+            Dictionary<string, User> responseUsers = JsonConvert.DeserializeObject<Dictionary<string, User>>(response);
+
+            foreach (User user in responseUsers.Values)
+            {
+
+                allUsers.Add(user);
+            }
+
+            return allUsers;
         }
     }
 }

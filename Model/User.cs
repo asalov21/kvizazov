@@ -13,9 +13,9 @@ namespace Kvizazov.Model
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int SoloPoints { get; set; }
-        public int PairPoints { get; set; }
-        public int TeamPoints { get; set; }
+        public float SoloPoints { get; set; }
+        public float PairPoints { get; set; }
+        public float TeamPoints { get; set; }
         public Role Role { get; set; }
         public List<int> SignedUpQuizzes { get; set; }
 

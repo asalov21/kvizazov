@@ -42,7 +42,9 @@ namespace Kvizazov.Forms
 
         private void btnLeaderboards_Click(object sender, RoutedEventArgs e)
         {
-
+            Leaderboards leaderboards = new Leaderboards();
+            leaderboards.Show();
+            this.Close();
         }
 
         private void btnNewQuestions_Click(object sender, RoutedEventArgs e)

@@ -82,7 +82,14 @@ namespace Kvizazov.Forms
 
             List<Quiz> quizzesBeforeUpdate = await quizRepository.GetAllQuizzesOfType((QuizType)cmbType.SelectedItem);
 
-            List<Quiz> quizzes = await quizRepository.UpdateQuizStatus(quizzesBeforeUpdate);
+            List<Quiz> quizzes;
+            if(quizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList().Count != 0)
+            {
+                quizzes = await quizRepository.UpdateQuizStatus(quizzesBeforeUpdate.Where(_quiz => _quiz != null).ToList());
+            } else
+            {
+                quizzes = quizzesBeforeUpdate;
+            }
 
             dgQuizes.ItemsSource = quizzes;
 
@@ -97,6 +104,8 @@ namespace Kvizazov.Forms
             dgQuizes.Columns[5].Header = "Sekundi po pitanju";
             dgQuizes.Columns[6].Visibility = Visibility.Hidden;
             dgQuizes.Columns[7].Visibility = Visibility.Hidden;
+            dgQuizes.Columns[8].Header = "Status";
+            dgQuizes.Columns[9].Visibility = Visibility.Hidden;
         }
 
         private async void btnSignup_Click(object sender, RoutedEventArgs e)
@@ -115,7 +124,7 @@ namespace Kvizazov.Forms
                         this.Focus();
                         return;
                     }
-                    selectedQuiz.LeaderboardSolo.Add(new KeyValuePair<User, int>(UserSessionService.Instance.LoggedInUser, 0));
+                    selectedQuiz.LeaderboardSolo.Add(new KeyValuePair<User, float>(UserSessionService.Instance.LoggedInUser, 0));
                     UserSessionService.Instance.LoggedInUser.SignedUpQuizzes.Add(selectedQuiz.Id);
                     if (UserSessionService.Instance.LoggedInUser.SignedUpQuizzes.Contains(0))
                     {
@@ -136,7 +145,7 @@ namespace Kvizazov.Forms
                         return;
                     }
                     Team selectedPair = await teamRepository.GetTeamByName(cmbPair.SelectedItem.ToString());
-                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, int>(selectedPair, 0));
+                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, float>(selectedPair, 0));
                     selectedPair.SignedUpQuizzes.Add(selectedQuiz.Id);
                     if (selectedPair.SignedUpQuizzes.Contains(0))
                     {
@@ -157,7 +166,7 @@ namespace Kvizazov.Forms
                         return;
                     }
                     Team selectedTeam = await teamRepository.GetTeamByName(cmbTeam.SelectedItem.ToString());
-                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, int>(selectedTeam, 0));
+                    selectedQuiz.LeaderboardPairTeam.Add(new KeyValuePair<Team, float>(selectedTeam, 0));
                     selectedTeam.SignedUpQuizzes.Add(selectedQuiz.Id);
                     if (selectedTeam.SignedUpQuizzes.Contains(0))
                     {

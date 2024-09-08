@@ -14,8 +14,9 @@ namespace Kvizazov.Model
         public DateTime End { get; set; }
         public int NumQuestions { get; set; }
         public int SecondsPerQuestion { get; set; }
-        public List<KeyValuePair<Team,int>> LeaderboardPairTeam { get; set; }
-        public List<KeyValuePair<User,int>> LeaderboardSolo { get; set; }
+        public List<KeyValuePair<Team,float>> LeaderboardPairTeam { get; set; }
+        public List<KeyValuePair<User,float>> LeaderboardSolo { get; set; }
         public QuizStatus Status { get; set; }
+        public List<Question> Questions { get; set; }
     }
 }

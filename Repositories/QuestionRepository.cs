@@ -1,4 +1,5 @@
-﻿using Kvizazov.Model;
+﻿using Kvizazov.Forms;
+using Kvizazov.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,37 @@ namespace Kvizazov.Repositories
                 return potentialQuestions;
             }
             
+        }
+
+        public async Task<int> GetAllNonNullQuestionsNumber()
+        {
+            string responseJson = await requestService.HttpGetRequest("questions");
+            responseJson = string.Join(",", responseJson.TrimEnd(']').Split(',').Skip(1));
+            responseJson = $"[{responseJson}]";
+            List<Question> allQuestions = JsonConvert.DeserializeObject<List<Question>>(responseJson);
+            return allQuestions.Where(question => question != null).ToList().Count;
+        }
+
+        public async Task<List<Question>> GetRandomQuestions(int numberOfQuestions)
+        {
+            string responseJson = await requestService.HttpGetRequest("questions");
+            responseJson = string.Join(",", responseJson.TrimEnd(']').Split(',').Skip(1));
+            responseJson = $"[{responseJson}]";
+            List<Question> allQuestions = JsonConvert.DeserializeObject<List<Question>>(responseJson);
+            List<Question> randomQuestions = new List<Question>();
+            Random random = new Random();
+            for (int i = 0; i < numberOfQuestions; i++)
+            {
+                int randomIndex;
+                do
+                {
+                    randomIndex = random.Next(allQuestions.Count);
+                } while (allQuestions[randomIndex] == null);
+
+                randomQuestions.Add(allQuestions[randomIndex]);
+                allQuestions.RemoveAt(randomIndex);
+            }
+            return randomQuestions;
         }
 
         public async Task DeletePotentialQuestion(Question question)

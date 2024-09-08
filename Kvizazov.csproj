@@ -107,7 +107,15 @@
     <Compile Include="Forms\ApproveQuestions.xaml.cs">
       <DependentUpon>ApproveQuestions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BaseForm.cs" />
+    <Compile Include="Forms\CurrentQuizLeaderboard.xaml.cs">
+      <DependentUpon>CurrentQuizLeaderboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Game.xaml.cs">
+      <DependentUpon>Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Leaderboards.xaml.cs">
+      <DependentUpon>Leaderboards.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -158,6 +166,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ApproveQuestions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\CurrentQuizLeaderboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Game.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Leaderboards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

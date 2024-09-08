@@ -1,5 +1,6 @@
 ﻿using Kvizazov.Model;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -67,6 +68,12 @@ namespace Kvizazov.Repositories
         public async Task DeleteTeam(string name)
         {
             await requestService.HttpDeleteRequest($"teams/{name}");
+        }
+
+        public async Task<List<Team>> MemberTeamsOfSpecificType(TeamType type, User user)
+        {
+            List<Team> allMyTeams = await ShowMyTeams(user);
+            return allMyTeams.Where(team => team.Type == type && team.ConcatenatedUsernames.Contains(user.Username)).ToList();
         }
     }
 }
